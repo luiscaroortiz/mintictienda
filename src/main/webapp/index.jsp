@@ -13,7 +13,7 @@
                     <img src="imagenes/logo2.png" class="card-img-top" alt="...">
 
                     <div class="card-body">
-                        <form method="get" action="validar_servlet">
+                        <form method="POST" action="validar_servlet">
                             <div class="form-group">
                                 <label>Usuario</label>
                                 <input type="text" class="form-control" id="txtusuario" name="txtusuario">
@@ -35,4 +35,25 @@
     </body>
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/sweetalert2.all.min.js"></script>
+
+    
+
+    <% if(request.getAttribute("error")!= null){
+        String error = (String)request.getAttribute("error");
+        if(error.equals("error_login")){ %>
+            <script>
+                Swal.fire(
+                    {
+                        icon: 'error',
+                        title: 'Error en el login!',
+                        text: 'Usuario o contraseña errada',
+                        confirmButtonText: 'Aceptar',
+                        confirmButtonColor: '#3085d6'
+                    }
+                )
+            </script>
+        <%}
+    }%>
+
 </html>	

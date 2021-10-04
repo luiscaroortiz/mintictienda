@@ -15,7 +15,7 @@
             <form name="clientes" method="post" action="action">
                 <table border="0">
                     <tr><td>Cedula: </td>  
-                        <td><input type="text" style="text-align:left" name="cedula_cliente" size="11" placeholder="Numero de Cédula"></td>
+                        <td><input type="text" style="text-align:left" name="cedula_cliente" size="11" placeholder="Numero de Cï¿½dula"></td>
                         <td style="width:30px;"></td>
                         <td>Direccion: </td> 
                         <td> <input type="text" style="text-align:left" name="direccion_cliente" size="20" placeholder="Digite la direccion"> </td> </tr>

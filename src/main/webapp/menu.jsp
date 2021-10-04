@@ -31,8 +31,8 @@
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="controlador?menu=crear_usuarios" target="miContenedor">Crear</a></li>
-							<li><a class="dropdown-item" href="#">Editar</a></li>
-							<li><a class="dropdown-item" href="#">buscar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">Listar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">buscar</a></li>
 							<li><a class="dropdown-item" href="#">Eliminar</a></li>
 						</ul>
 					</li>
@@ -71,13 +71,13 @@
 					</li>
 
 				</ul>
-				<div class="dropdown">
+				<div class="dropdown mx-5">
 					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-					nobre usuario
+					${usuario.getUsuario()}
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<li><a class="dropdown-item" href="#">nombre</a></li>
-						<li><a class="dropdown-item" href="#">correo</a></li>
+						<li><a class="dropdown-item" href="#">${usuario.getNombre_usuario()}</a></li>
+						<li><a class="dropdown-item" href="#">${usuario.getEmail_usuario()}</a></li>
 						
 						<div class="dropdown-divider"></div>
                         <form class="dropdown-item" method="POST" action="validar_servlet">
@@ -89,7 +89,7 @@
 		</div>
 	</nav>
 
-	<div class="m-3" style="height:900px;">
+	<div class="m-3" style="height:550px;">
 		<iframe name="miContenedor" id="miContenedor" style="height:100%; width:100%;" frameBorder="1"></iframe>
 	</div>
 

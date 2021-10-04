@@ -27,41 +27,38 @@ public class validar_servlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     public void validarUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	try {
-		ArrayList<Usuarios> lista = Json.getJSON();
-		request.setAttribute("lista", lista);
-		String usua = request.getParameter("txtusuario");
-		String pass = request.getParameter("txtpassword");
-		int respuesta =0;
-		for (Usuarios usuario:lista){
-			if (usuario.getUsuario().equals(usua) && usuario.getPassword().equals(pass)) {
-			    request.setAttribute("usuario", usuario);
-			    request.getRequestDispatcher("controlador?menu=Principal").forward(request, response);
-			    respuesta =1;
+		try {
+			ArrayList<Usuarios> lista = Json.getJSON();
+			request.setAttribute("lista", lista);
+			String usua = request.getParameter("txtusuario");
+			String pass = request.getParameter("txtpassword");
+			int respuesta =0;
+			for (Usuarios usuario:lista){
+				if (usuario.getUsuario().equals(usua) && usuario.getPassword().equals(pass)) {
+					request.setAttribute("usuario", usuario);
+					request.getRequestDispatcher("controlador?menu=Principal").forward(request, response);
+					respuesta =1;
+				}
+
 			}
-					
+
+			if (respuesta==0) {
+				request.setAttribute("error", "error_login");
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				System.out.println("No se encontraron datos");
+			}
+
+		} catch (Exception e) {
+				// TODO: handle exception
+			e.printStackTrace();
 		}
-			
-		if (respuesta==0) {
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
-			System.out.println("No se encontraron datos");
-		}
-			
-	} catch (Exception e) {
-			// TODO: handle exception
-		e.printStackTrace();
-		}
-    	}	
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String accion = request.getParameter("accion");
 
-		if (accion.equals("Ingresar")) {
-			this.validarUsuarios(request, response);
-		}
 
 /*		String accion = request.getParameter("accion");
         if (accion.equalsIgnoreCase("Ingresar")) {
@@ -83,7 +80,7 @@ public class validar_servlet extends HttpServlet {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 
 		}
-*/
+	*/
 
 	}
 
@@ -92,7 +89,16 @@ public class validar_servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		String accion = request.getParameter("accion");
+
+		if (accion.equals("Ingresar")) {
+			this.validarUsuarios(request, response);
+		}
+		else
+		{
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
 	}
 
 }
