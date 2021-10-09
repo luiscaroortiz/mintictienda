@@ -24,6 +24,14 @@
 			</button>|
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					
+
+					
+					<%
+					String usuario_login = (String)request.getAttribute("usuario_login");
+					if(usuario_login.equals("admininicial")){ 
+					%>
+
 					<li class="nav-item dropdown ">
 						<a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,32 +40,43 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="controlador?menu=crear_usuarios" target="miContenedor">Crear</a></li>
 							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">Listar</a></li>
-							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">buscar</a></li>
-							<li><a class="dropdown-item" href="#">Eliminar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=buscar_usuarios" target="miContenedor">buscar</a></li>
 						</ul>
 					</li>
+
 					<li class="nav-item dropdown ">
 						<a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
 							Clientes
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Crear</a></li>
-							<li><a class="dropdown-item" href="#">Editar</a></li>
-							<li><a class="dropdown-item" href="#">buscar</a></li>
-							<li><a class="dropdown-item" href="#">Eliminar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=crear_clientes" target="miContenedor">Crear</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=listar_clientes" target="miContenedor">Listar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=buscar_clientes" target="miContenedor">buscar</a></li>
 						</ul>
 					</li>
-					<li class="nav-item dropdown">
+
+					<li class="nav-item dropdown ">
 						<a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
 							Proveedores
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="controlador?menu=crear_usuarios" target="miContenedor">Crear</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">Listar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">buscar</a></li>
+						</ul>
+					</li>
+
+					<%}%>
+
+					<li class="nav-item dropdown ">
+						<a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Productos
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="#">Crear</a></li>
-							<li><a class="dropdown-item" href="#">Editar</a></li>
-							<li><a class="dropdown-item" href="#">buscar</a></li>
-							<li><a class="dropdown-item" href="#">Eliminar</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown ">

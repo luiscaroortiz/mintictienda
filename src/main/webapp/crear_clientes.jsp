@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
     <div class="container border border-primary rounded my-5 p-2  col-sm-6">
         <form method="GET" action="controlador">
-            <input type="hidden" name="menu" value="Usuarios">
-            <h1 class="text-center">Crear usuario</h1>
+            <input type="hidden" name="menu" value="Clientes">
+            <h1 class="text-center">Crear Clientes</h1>
             <div class="row">
                 <div class="col-sm-2">
                     <div class="p-1">
@@ -17,12 +17,12 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="p-1">
-                        <label ><b>Usuario</b></label>
+                        <label ><b>Telefono</b></label>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="p-1">
-                        <input type="text" class="form-control" id="txtusuario" name="txtusuario" value="" placeholder="Ingrese el usuario">
+                        <input type="text" class="form-control" id="txttelefono" name="txttelefono" value="" placeholder="Ingrese el telefono">
                     </div>
                 </div>
             </div>
@@ -39,24 +39,24 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="p-1">
-                        <label ><b>Contraseña</b></label>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="p-1">
-                        <input type="password" class="form-control" id="txtpassword" name="txtpassword" value="" placeholder="Ingrese la contraseña">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="p-1">
                         <label ><b>Correo electronico</b></label>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="p-1">
                         <input type="text" class="form-control" id="txtemail" name="txtemail" value="" placeholder="Ingrese el correo">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="p-1">
+                        <label ><b>Direccion</b></label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="p-1">
+                        <input type="text" class="form-control" id="txtdireccion" name="txtdireccion" value="" placeholder="Ingrese la direccion">
                     </div>
                 </div>
 
@@ -78,26 +78,26 @@
 
     <% if(request.getAttribute("respuesta")!= null){
         String respuesta = (String)request.getAttribute("respuesta");
-        if(respuesta.equals("ok_guardar_usuario")){ %>
+        if(respuesta.equals("ok_guardar_cliente")){ %>
             <script>
                 Swal.fire(
                     {
                         icon: 'success',
                         title: 'Se guardo con exito!',
-                        text: 'Se creo un nuevo usuario',
+                        text: 'Se creo un nuevo cliente',
                         confirmButtonText: 'Aceptar',
                         confirmButtonColor: '#3085d6'
                     }
                 )
             </script>
         <%}
-        if(respuesta.equals("error_guardar_usuario")){ %>
+        if(respuesta.equals("error_guardar_cliente")){ %>
             <script>
                 Swal.fire(
                     {
                         icon: 'error',
                         title: 'Error al guardar!',
-                        text: 'No se pudo crear el usuario',
+                        text: 'No se pudo crear el cliente',
                         confirmButtonText: 'Aceptar',
                         confirmButtonColor: '#3085d6'
                     }

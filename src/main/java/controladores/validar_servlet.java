@@ -36,6 +36,7 @@ public class validar_servlet extends HttpServlet {
 			for (Usuarios usuario:lista){
 				if (usuario.getUsuario().equals(usua) && usuario.getPassword().equals(pass)) {
 					request.setAttribute("usuario", usuario);
+					request.setAttribute("usuario_login", usua);
 					request.getRequestDispatcher("controlador?menu=Principal").forward(request, response);
 					respuesta =1;
 				}
@@ -53,9 +54,8 @@ public class validar_servlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
@@ -84,9 +84,7 @@ public class validar_servlet extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);

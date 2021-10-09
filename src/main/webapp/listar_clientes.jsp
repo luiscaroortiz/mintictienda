@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="controladores.Usuarios"%>
+<%@page import="controladores.Clientes"%>
 <%@page import="java.util.ArrayList"%>
    
 <div class="container border border-primary rounded my-5 p-2">
-    <h1 class="text-center">Usuarios Creados</h1>
+    <h1 class="text-center">Clientes Creados</h1>
     <div class="table-responsive text-center">
         <table style="margin: 0 auto;"  class="table table-bordered table-sm w-75 text-center">
             <thead class="thead-dark">
@@ -12,27 +12,27 @@
                     <th scope="col">Cedula</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Password</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Telefono</th>
                     <th scope="col">Editar</th>
                     <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
-                <% ArrayList<Usuarios> lista= (ArrayList<Usuarios>) request.getAttribute("lista");
-                for (Usuarios usuario:lista){
+                <% ArrayList<Clientes> lista= (ArrayList<Clientes>) request.getAttribute("lista");
+                for (Clientes cliente:lista){
                 %>
                 <tr>
-                    <td><%=usuario.getCedula_usuario()%></td>
-                    <td><%=usuario.getNombre_usuario()%></td>
-                    <td><%=usuario.getEmail_usuario()%></td>
-                    <td><%=usuario.getUsuario()%></td>
-                    <td><%=usuario.getPassword()%></td>
+                    <td><%=cliente.getCedula_cliente()%></td>
+                    <td><%=cliente.getNombre_cliente()%></td>
+                    <td><%=cliente.getEmail_cliente()%></td>
+                    <td><%=cliente.getDireccion_cliente()%></td>
+                    <td><%=cliente.getTelefono_cliente()%></td>
                     <td>
-                        <a class="btn btn-warning" href="controlador?menu=editar_usuarios&id=<%=usuario.getCedula_usuario()%>">Editar</a>
+                        <a class="btn btn-warning" href="controlador?menu=editar_clientes&id=<%=cliente.getCedula_cliente()%>">Editar</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="controlador?menu=Usuarios&accion=Eliminar&id=<%=usuario.getCedula_usuario()%>">Eliminar</a>
+                        <a class="btn btn-danger" href="controlador?menu=Clientes&accion=Eliminar&id=<%=cliente.getCedula_cliente()%>">Eliminar</a>
                     </td>
                 </tr>
                 <%}%>
@@ -50,26 +50,26 @@
 
     String respuesta = (String)request.getAttribute("respuesta");
 
-    if(respuesta.equals("ok_eliminar_usuario")){ %>
+    if(respuesta.equals("ok_eliminar_cliente")){ %>
         <script>
             Swal.fire(
                 {
                     icon: 'success',
                     title: 'Se elimino con exito!',
-                    text: 'Se elimino el usuario seleccionado',
+                    text: 'Se elimino el cliente seleccionado',
                     confirmButtonText: 'Aceptar',
                     confirmButtonColor: '#3085d6'
                 }
             )
         </script>
     <%}
-    if(respuesta.equals("error_eliminar_usuario")){ %>
+    if(respuesta.equals("error_eliminar_cliente")){ %>
         <script>
             Swal.fire(
                 {
                     icon: 'error',
                     title: 'Error al eliminar!',
-                    text: 'No se pudo eliminar el usuario',
+                    text: 'No se pudo eliminar el cliente',
                     confirmButtonText: 'Aceptar',
                     confirmButtonColor: '#3085d6'
                 }
@@ -77,26 +77,26 @@
 
         </script>
     <%}
-    if(respuesta.equals("ok_editar_usuario")){ %>
+    if(respuesta.equals("ok_editar_cliente")){ %>
         <script>
             Swal.fire(
                 {
                     icon: 'success',
                     title: 'Se edito con exito!',
-                    text: 'Se modificao el usuario seleccionado',
+                    text: 'Se modificao el cliente seleccionado',
                     confirmButtonText: 'Aceptar',
                     confirmButtonColor: '#3085d6'
                 }
             )
         </script>
     <%}
-    if(respuesta.equals("error_eliminar_usuario")){ %>
+    if(respuesta.equals("error_eliminar_cliente")){ %>
         <script>
             Swal.fire(
                 {
                     icon: 'error',
                     title: 'Error al editar!',
-                    text: 'No se pudo modificar el usuario',
+                    text: 'No se pudo modificar el cliente',
                     confirmButtonText: 'Aceptar',
                     confirmButtonColor: '#3085d6'
                 }
