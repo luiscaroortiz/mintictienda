@@ -40,7 +40,7 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="controlador?menu=crear_usuarios" target="miContenedor">Crear</a></li>
 							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">Listar</a></li>
-							<li><a class="dropdown-item" href="controlador?menu=buscar_usuarios" target="miContenedor">buscar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=buscar_usuarios" target="miContenedor">Buscar</a></li>
 						</ul>
 					</li>
 
@@ -52,7 +52,7 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="controlador?menu=crear_clientes" target="miContenedor">Crear</a></li>
 							<li><a class="dropdown-item" href="controlador?menu=listar_clientes" target="miContenedor">Listar</a></li>
-							<li><a class="dropdown-item" href="controlador?menu=buscar_clientes" target="miContenedor">buscar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=buscar_clientes" target="miContenedor">Buscar</a></li>
 						</ul>
 					</li>
 
@@ -62,9 +62,9 @@
 							Proveedores
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="controlador?menu=crear_usuarios" target="miContenedor">Crear</a></li>
-							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">Listar</a></li>
-							<li><a class="dropdown-item" href="controlador?menu=listar_usuarios" target="miContenedor">buscar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=crear_proveedores" target="miContenedor">Crear</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=listar_proveedores" target="miContenedor">Listar</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=buscar_proveedores" target="miContenedor">Buscar</a></li>
 						</ul>
 					</li>
 
@@ -85,7 +85,7 @@
 							Ventas
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Crear</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=crear_ventas" target="miContenedor">Crear</a></li>
 						</ul>
 					</li>
 

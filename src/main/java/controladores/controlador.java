@@ -67,8 +67,6 @@ public class controlador extends HttpServlet {
 				e.printStackTrace();
 			}
 
-
-
         }
 		//////clientes
 		if (menu.equals("crear_clientes")) {
@@ -101,10 +99,47 @@ public class controlador extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+        }
 
+		//////proveedores
+		if (menu.equals("crear_proveedores")) {
+            request.getRequestDispatcher("crear_proveedores.jsp").forward(request, response);
+        }
 
+		if (menu.equals("buscar_proveedores")) {
+            request.getRequestDispatcher("buscar_proveedores.jsp").forward(request, response);
+        }
+		if (menu.equals("listar_proveedores")) {
+			try {
+				ArrayList<Proveedores> lista = Json.getJSON_proveedores();
+				request.setAttribute("lista", lista);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+            request.getRequestDispatcher("listar_proveedores.jsp").forward(request, response);
+        }
+		if (menu.equals("editar_proveedores")) {
+
+			Long id= Long.parseLong(request.getParameter("id"));
+			try {
+				ArrayList<Proveedores> lista1 = Json.getJSON_proveedores();
+				System.out.println("Parametro: " + id);
+				for (Proveedores proveedores:lista1){
+					if (proveedores.getNitproveedor()==id) {
+						request.setAttribute("proveedorSeleccionado", proveedores);
+						request.getRequestDispatcher("editar_proveedores.jsp").forward(request, response);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
         }
+		//////ventas
+		if (menu.equals("crear_ventas")) {
+            request.getRequestDispatcher("crear_ventas.jsp").forward(request, response);
+        }
+
 		///////////////FIN MENU
 
         ////////////ACCIONES
@@ -293,6 +328,101 @@ public class controlador extends HttpServlet {
 					}
 					request.setAttribute("resultado_busqueda", "no_encontrado");
 					request.getRequestDispatcher("buscar_clientes.jsp").forward(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+        }
+		/////proveedores
+		if (menu.equals("Proveedores")) {
+			if(accion.equals("Guardar")) {
+				Proveedores proveedor = new Proveedores();
+				proveedor.setNitproveedor(Long.parseLong(request.getParameter("txtnit")));
+				proveedor.setNombre_proveedor(request.getParameter("txtnombre"));
+				proveedor.setCiudad_proveedor(request.getParameter("txtciudad"));
+				proveedor.setTelefono_proveedor(request.getParameter("txttelefono"));
+				proveedor.setDireccion_proveedor(request.getParameter("txtdireccion"));
+
+				int respuesta=0;
+				try {
+					respuesta = Json.postJSON_proveedores(proveedor);
+					if (respuesta==200) {
+						request.setAttribute("respuesta", "ok_guardar_proveedor");
+						request.getRequestDispatcher("crear_proveedores.jsp").forward(request, response);
+
+					}
+					else
+					{
+						System.out.println("Error: " +  respuesta);
+						request.setAttribute("respuesta", "error_guardar_proveedor");
+						request.getRequestDispatcher("crear_proveedores.jsp").forward(request, response);
+
+					}
+					System.out.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(accion.equals("Eliminar")){
+				Long id= Long.parseLong(request.getParameter("id"));
+				int respuesta=0;
+				try {
+					respuesta = Json.deleteJSON_proveedores(id);
+					PrintWriter write = response.getWriter();
+					if (respuesta==200) {
+						request.setAttribute("respuesta", "ok_eliminar_proveedor");
+						request.getRequestDispatcher("controlador?menu=listar_proveedores").forward(request, response);
+					}
+					else {
+						request.setAttribute("respuesta", "error_eliminar_proveedor");
+						request.getRequestDispatcher("controlador?menu=listar_proveedores").forward(request, response);
+					}
+					//write.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(accion.equals("Actualizar")) {
+				Proveedores proveedor = new Proveedores();
+				proveedor.setNitproveedor(Long.parseLong(request.getParameter("txtnit")));
+				proveedor.setNombre_proveedor(request.getParameter("txtnombre"));
+				proveedor.setCiudad_proveedor(request.getParameter("txtciudad"));
+				proveedor.setTelefono_proveedor(request.getParameter("txttelefono"));
+				proveedor.setDireccion_proveedor(request.getParameter("txtdireccion"));
+
+				int respuesta=0;
+				try {
+				respuesta = Json.putJSON_proveedores(proveedor,proveedor.getNitproveedor());
+				PrintWriter write = response.getWriter();
+
+				if (respuesta==200) {
+					request.setAttribute("respuesta", "ok_editar_proveedor");
+					request.getRequestDispatcher("controlador?menu=listar_proveedores").forward(request, response);
+				}
+				else {
+					request.setAttribute("respuesta", "error_editar_proveedor");
+					request.getRequestDispatcher("controlador?menu=listar_proveedores").forward(request, response);
+				}
+				write.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(accion.equals("Buscar")) {
+
+				Long txtnit= Long.parseLong(request.getParameter("txtnit"));
+				try {
+					ArrayList<Proveedores> lista1 = Json.getJSON_proveedores();
+					System.out.println("Parametro: " + txtnit);
+					for (Proveedores proveedores:lista1){
+						if (proveedores.getNitproveedor()== txtnit) {
+							request.setAttribute("proveedorSeleccionado", proveedores);
+							request.setAttribute("resultado_busqueda", "encontrado");
+							request.getRequestDispatcher("buscar_proveedores.jsp").forward(request, response);
+						}
+					}
+					request.setAttribute("resultado_busqueda", "no_encontrado");
+					request.getRequestDispatcher("buscar_proveedores.jsp").forward(request, response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
