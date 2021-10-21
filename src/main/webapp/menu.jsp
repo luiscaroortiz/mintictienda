@@ -76,7 +76,9 @@
 							Productos
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Crear</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=crear_productos" target="miContenedor">Crear</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=listar_productos" target="miContenedor">Listar</a></li>
+
 						</ul>
 					</li>
 					<li class="nav-item dropdown ">

@@ -23,6 +23,7 @@ public class controlador extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -128,6 +129,54 @@ public class controlador extends HttpServlet {
 					if (proveedores.getNitproveedor()==id) {
 						request.setAttribute("proveedorSeleccionado", proveedores);
 						request.getRequestDispatcher("editar_proveedores.jsp").forward(request, response);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+        }
+
+		//////productos
+		if (menu.equals("crear_productos")) {
+			try {
+				ArrayList<Proveedores> lista = Json.getJSON_proveedores();
+				request.setAttribute("lista", lista);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+            request.getRequestDispatcher("crear_productos.jsp").forward(request, response);
+        }
+
+		if (menu.equals("buscar_productos")) {
+            request.getRequestDispatcher("buscar_productos.jsp").forward(request, response);
+        }
+		if (menu.equals("listar_productos")) {
+			try {
+				ArrayList<Productos> lista = Json.getJSON_productos();
+				request.setAttribute("lista", lista);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+            request.getRequestDispatcher("listar_productos.jsp").forward(request, response);
+        }
+		if (menu.equals("editar_productos")) {
+
+			try {
+				ArrayList<Proveedores> lista = Json.getJSON_proveedores();
+				request.setAttribute("lista", lista);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			Long id= Long.parseLong(request.getParameter("id"));
+			try {
+				ArrayList<Productos> lista1 = Json.getJSON_productos();
+				System.out.println("Parametro: " + id);
+				for (Productos productos:lista1){
+					if (productos.getCodigo_producto()==id) {
+						request.setAttribute("productoSeleccionado", productos);
+						request.getRequestDispatcher("editar_productos.jsp").forward(request, response);
 					}
 				}
 			} catch (Exception e) {
@@ -428,6 +477,118 @@ public class controlador extends HttpServlet {
 				}
 			}
         }
+		/////productos
+		if (menu.equals("Productos")) {
+			if(accion.equals("Guardar")) {
+				Productos producto = new Productos();
+				producto.setCodigo_producto(Long.parseLong(request.getParameter("txtcodigo")));
+				producto.setNombre_producto(request.getParameter("txtnombre"));
+				producto.setNitproveedor(Long.parseLong(request.getParameter("txtnit")));
+				producto.setPrecio_compra(Double.parseDouble(request.getParameter("txtprecio_compra")));
+				producto.setIvacompra(Double.parseDouble(request.getParameter("txtiva_compra")));
+				producto.setPrecio_venta(Double.parseDouble(request.getParameter("txtprecio_venta")));
+
+				int respuesta=0;
+				try {
+					respuesta = Json.postJSON_productos(producto);
+					if (respuesta==200) {
+						request.setAttribute("respuesta", "ok_guardar_producto");
+						try {
+							ArrayList<Proveedores> lista = Json.getJSON_proveedores();
+							request.setAttribute("lista", lista);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						request.getRequestDispatcher("crear_productos.jsp").forward(request, response);
+
+					}
+					else
+					{
+						System.out.println("Error: " +  respuesta);
+						request.setAttribute("respuesta", "error_guardar_producto");
+						try {
+							ArrayList<Proveedores> lista = Json.getJSON_proveedores();
+							request.setAttribute("lista", lista);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						request.getRequestDispatcher("crear_productos.jsp").forward(request, response);
+
+					}
+					System.out.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(accion.equals("Eliminar")){
+				Long id= Long.parseLong(request.getParameter("id"));
+				int respuesta=0;
+				try {
+					respuesta = Json.deleteJSON_productos(id);
+					PrintWriter write = response.getWriter();
+					if (respuesta==200) {
+						request.setAttribute("respuesta", "ok_eliminar_producto");
+						request.getRequestDispatcher("controlador?menu=listar_productos").forward(request, response);
+					}
+					else {
+						request.setAttribute("respuesta", "error_eliminar_producto");
+						request.getRequestDispatcher("controlador?menu=listar_productos").forward(request, response);
+					}
+					//write.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(accion.equals("Actualizar")) {
+				Productos producto = new Productos();
+				producto.setCodigo_producto(Long.parseLong(request.getParameter("txtcodigo")));
+				producto.setNombre_producto(request.getParameter("txtnombre"));
+				producto.setNitproveedor(Long.parseLong(request.getParameter("txtnit")));
+				producto.setPrecio_compra(Double.parseDouble(request.getParameter("txtprecio_compra")));
+				producto.setIvacompra(Double.parseDouble(request.getParameter("txtiva_compra")));
+				producto.setPrecio_venta(Double.parseDouble(request.getParameter("txtprecio_venta")));
+
+				int respuesta=0;
+				try {
+				respuesta = Json.putJSON_productos(producto,producto.getCodigo_producto());
+				PrintWriter write = response.getWriter();
+
+				if (respuesta==200) {
+					request.setAttribute("respuesta", "ok_editar_producto");
+					request.getRequestDispatcher("controlador?menu=listar_productos").forward(request, response);
+				}
+				else {
+					request.setAttribute("respuesta", "error_editar_producto");
+					request.getRequestDispatcher("controlador?menu=listar_productos").forward(request, response);
+				}
+				write.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(accion.equals("Buscar")) {
+
+
+
+				Long txtcodigo= Long.parseLong(request.getParameter("txtcodigo"));
+				try {
+					ArrayList<Productos> lista1 = Json.getJSON_productos();
+					System.out.println("Parametro: " + txtcodigo);
+					for (Productos productos:lista1){
+						if (productos.getCodigo_producto()== txtcodigo) {
+							request.setAttribute("productoSeleccionado", productos);
+							request.setAttribute("resultado_busqueda", "encontrado");
+							request.getRequestDispatcher("buscar_productos.jsp").forward(request, response);
+						}
+					}
+					request.setAttribute("resultado_busqueda", "no_encontrado");
+					request.getRequestDispatcher("buscar_productos.jsp").forward(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+        }
+		
         /////////////FIN ACCIONES
 
 	}
