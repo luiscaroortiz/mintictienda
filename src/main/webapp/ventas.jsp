@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <div class="container border border-primary rounded my-5 p-2  col-sm-6">
         <form method="GET" action="controlador">
             <div class="card">
@@ -84,7 +85,7 @@
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach var="lista" items="${listaventas}">
+						<c:forEach items="${listaventas}" var="lista" >
 							<tr>
 								<th>${lista.getCodigo_detalle_venta()}</th>
 								<th>${lista.getCodigo_producto()}</th>
@@ -125,5 +126,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/sweetalert2.all.min.js"></script>
+    
 
 

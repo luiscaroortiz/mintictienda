@@ -774,11 +774,16 @@ public class controlador extends HttpServlet {
 								}
 
 							}
+						}else if (accion.equals("NuevaVenta")) {
+								
+
+							}
+							
 
 							request.getRequestDispatcher("/ventas.jsp").forward(request, response);
 		
 		
-		}
+		
 		
         /////////////FIN ACCIONES
 
