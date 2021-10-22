@@ -537,5 +537,165 @@ public class Json {
 		return respuesta;
 	}
 
+////////////////////////////////////////////////////////////
+//////////////////////////////////////Ventas
+
+//agregar informacion a la tabla clientes
+	public static ArrayList<Ventas> parsingVentas(String json) throws ParseException {// devulve un arraylist
+		JSONParser jsonParser = new JSONParser();
+		ArrayList<Ventas> lista = new ArrayList<Ventas>();
+		JSONArray ventas = (JSONArray) jsonParser.parse(json);
+		Iterator i = ventas.iterator(); // recorrer la tabla ventas
+		while (i.hasNext()) {
+			JSONObject innerObj = (JSONObject) i.next();
+			Ventas venta = new Ventas();
+			venta.setCodigo_venta(Long.parseLong(innerObj.get("Codigo_venta").toString())); // convertir de String a
+																							// Long
+			venta.setCedula_cliente(Long.parseLong(innerObj.get("Cedula_cliente").toString()));
+			venta.setCedula_usuario(Long.parseLong(innerObj.get("Cedula_usuario").toString()));
+			venta.setIvaventa(Double.parseDouble(innerObj.get("Ivaventa").toString()));
+			venta.setTotal_venta(Double.parseDouble(innerObj.get("Total_venta").toString()));
+			venta.setValor_venta(Double.parseDouble(innerObj.get("setValor_venta").toString()));
+			lista.add(venta);
+		}
+		return lista;
+	}
+
+//listar la informacion
+	public static ArrayList<Ventas> getJSON_ventas() throws IOException, ParseException { // devolver un listado JSON
+
+		url = new URL(sitio + "ventas/listar"); // trae el metodo de ventas.API
+		HttpURLConnection http = (HttpURLConnection) url.openConnection();
+
+		http.setRequestMethod("GET");
+		http.setRequestProperty("Accept", "application/json");
+
+		InputStream respuesta = http.getInputStream();
+		byte[] inp = respuesta.readAllBytes();
+		String json = "";
+
+		for (int i = 0; i < inp.length; i++) {
+			json += (char) inp[i];
+		}
+
+		ArrayList<Ventas> lista = new ArrayList<Ventas>();
+		lista = parsingVentas(json);
+		http.disconnect();
+		return lista;
+	}
+
+	public static int postJSON_ventas(Ventas ventas) throws IOException {
+
+		url = new URL(sitio + "ventas/guardar");
+		HttpURLConnection http;
+		http = (HttpURLConnection) url.openConnection();
+
+		try {
+			http.setRequestMethod("POST");
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		}
+
+		http.setDoOutput(true);
+		http.setRequestProperty("Accept", "application/json");
+		http.setRequestProperty("Content-Type", "application/json");
+
+		String data = "{" + "\"codigo_venta\":\"" + String.valueOf(ventas.getCodigo_venta())
+				+ "\",\"cedula_cliente\": \"" + ventas.getCedula_cliente() + "\",\"cedula_usuario\": \""
+				+ ventas.getCedula_usuario() + "\",\"ivaventa\":\"" + ventas.getIvaventa() + "\",\"total_venta\":\""
+				+ ventas.getTotal_venta() + "\",\"valor_venta\": \"" + ventas.getValor_venta() + "\"}";
+		byte[] out = data.getBytes(StandardCharsets.UTF_8);
+		OutputStream stream = http.getOutputStream();
+		stream.write(out);
+
+		int respuesta = http.getResponseCode();
+		http.disconnect();
+		return respuesta;
+	}
+
+	public static int putJSON_ventas(Ventas ventas, Long id) throws IOException {
+
+		url = new URL(sitio + "ventas/actualizar");
+		HttpURLConnection http;
+		http = (HttpURLConnection) url.openConnection();
+
+		try {
+			http.setRequestMethod("PUT");
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		}
+
+		http.setDoOutput(true);
+		http.setRequestProperty("Accept", "application/json");
+		http.setRequestProperty("Content-Type", "application/json");
+
+		String data = "{" + "\"codigo_venta\":\"" + id + "\",\"cedula_cliente\": \"" + ventas.getCedula_cliente()
+				+ "\",\"cedula_usuario\": \"" + ventas.getCedula_usuario() + "\",\"ivaventa\":\"" + ventas.getIvaventa()
+				+ "\",\"total_venta\":\"" + ventas.getTotal_venta() + "\",\"valor_venta\":\"" + ventas.getValor_venta()
+				+ "\"}";
+		byte[] out = data.getBytes(StandardCharsets.UTF_8);
+		OutputStream stream = http.getOutputStream();
+		stream.write(out);
+
+		int respuesta = http.getResponseCode();
+		http.disconnect();
+		return respuesta;
+	}
+
+	public static int deleteJSON_ventas(long id) throws IOException {
+
+		url = new URL(sitio + "ventas/eliminar/" + id);
+		HttpURLConnection http;
+		http = (HttpURLConnection) url.openConnection();
+
+		try {
+			http.setRequestMethod("DELETE");
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		}
+
+		http.setDoOutput(true);
+		http.setRequestProperty("Accept", "application/json");
+		http.setRequestProperty("Content-Type", "application/json");
+
+		int respuesta = http.getResponseCode();
+		http.disconnect();
+		return respuesta;
+	}
+////////////////////////////////////////////////////////////
+//////////////////////////////////////Detalle_Ventas
+
+	public static int postJSON_Detalle_Venta(Detalle_ventas detalle_ventas) throws IOException {
+
+		url = new URL(sitio + "detalle_ventas/guardar");
+		HttpURLConnection http;
+		http = (HttpURLConnection) url.openConnection();
+
+		try {
+			http.setRequestMethod("POST");
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		}
+
+		http.setDoOutput(true);
+		http.setRequestProperty("Accept", "application/json");
+		http.setRequestProperty("Content-Type", "application/json");
+
+		String data = "{" + "\"codigo_detalle_venta\":\"" + String.valueOf(detalle_ventas.getCodigo_detalle_venta())
+				+ "\",\"cantidad_producto\": \"" + String.valueOf(detalle_ventas.getCantidad_producto())
+				+ "\",\"codigo_producto\": \"" + String.valueOf(detalle_ventas.getCodigo_producto())
+				+ "\",\"codigo_venta\": \"" + String.valueOf(detalle_ventas.getCodigo_venta())
+				+ "\",\"valor_total\": \"" + String.valueOf(detalle_ventas.getValor_total()) + "\",\"valor_venta\":\""
+				+ String.valueOf(detalle_ventas.getValor_venta()) + "\",\"valor_iva\":\""
+				+ String.valueOf(detalle_ventas.getValor_iva()) + "\"}";
+		byte[] out = data.getBytes(StandardCharsets.UTF_8);
+		OutputStream stream = http.getOutputStream();
+		stream.write(out);
+
+		int respuesta = http.getResponseCode();
+		http.disconnect();
+		return respuesta;
+}
+
 
 }
