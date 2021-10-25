@@ -90,6 +90,17 @@
 							<li><a class="dropdown-item" href="controlador?menu=crear_ventas" target="miContenedor">Crear</a></li>
 						</ul>
 					</li>
+					<li class="nav-item dropdown ">
+						<a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Reportes
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="controlador?menu=reporte_usuarios" target="miContenedor">Listado de Usuarios</a></li>
+							<li><a class="dropdown-item" href="controlador?menu=reporte_clientes" target="miContenedor">Listado de Clientes</a></li>
+
+						</ul>
+					</li>
 
 				</ul>
 				<div class="dropdown mx-5">

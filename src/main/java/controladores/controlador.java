@@ -277,6 +277,26 @@ public class controlador extends HttpServlet {
 		if (menu.equals("crear_ventas")) {
             request.getRequestDispatcher("ventas.jsp").forward(request, response);
         }
+		
+	////reportes
+			if (menu.equals("reporte_usuarios")) {
+				try {
+					ArrayList<Usuarios> lista = Json.getJSON();
+					request.setAttribute("lista", lista);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	            request.getRequestDispatcher("reporte_usuarios.jsp").forward(request, response);
+	        }
+			if (menu.equals("reporte_clientes")) {
+				try {
+					ArrayList<Clientes> lista = Json.getJSON_clientes();
+					request.setAttribute("lista", lista);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	            request.getRequestDispatcher("reporte_clientes.jsp").forward(request, response);
+	        }
 
 		///////////////FIN MENU
 
